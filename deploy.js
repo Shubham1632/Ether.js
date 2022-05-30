@@ -5,6 +5,12 @@ require("dotenv").config();
 async function main() {
   let provider = new ether.providers.JsonRpcProvider(process.env.RpcUrl);
   let wallet = new ether.Wallet(process.env.privateKey, provider);
+  // const encryptedJson = fs.readFileSync("./.encryptedKey.json", "utf8");
+  // let wallet = new ether.Wallet.fromEncryptedJson(
+  //   encryptedJson,
+  //   process.env.keyPassword
+  // );
+  // wallet = await wallet.connect(provider);
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8");
   const binary = fs.readFileSync(
     "./SimpleStorage_sol_SimpleStorage.bin",
@@ -18,6 +24,7 @@ async function main() {
   const TransactionReciept = await transactionResponce.wait(1);
   console.log(TransactionReciept);
   await contract.deployTransaction.wait(1);
+  console.log(`Contract Adress ${contract.address}`);
   const currentFavoriteNumber = await contract.retrieve();
   console.log(
     `Your current favorite numbet is : ${currentFavoriteNumber.toString()}`
