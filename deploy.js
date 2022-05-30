@@ -1,12 +1,10 @@
 const ether = require("ethers");
 const fs = require("fs-extra");
+require("dotenv").config();
 
 async function main() {
-  let provider = new ether.providers.JsonRpcProvider("HTTP://127.0.0.1:7545");
-  let wallet = new ether.Wallet(
-    "0eeaa37fdad90bbb77e9a5a2de192f9a69a0ab9366cba7d601431bda91b560bd",
-    provider
-  );
+  let provider = new ether.providers.JsonRpcProvider(process.env.RpcUrl);
+  let wallet = new ether.Wallet(process.env.privateKey, provider);
   const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8");
   const binary = fs.readFileSync(
     "./SimpleStorage_sol_SimpleStorage.bin",
@@ -39,8 +37,7 @@ async function main() {
   // await sentTx.wait(1);
   // console.log(sentTx);
   // const currentFavoriteNumber = await contract.retreive();
-  // console.log(currentFavoriteNumber);
-  // commiting file to git
+  // console.log(currentFavoriteNumber)
 }
 
 main()
