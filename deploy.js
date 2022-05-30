@@ -40,6 +40,7 @@ async function main() {
   // console.log(sentTx);
   // const currentFavoriteNumber = await contract.retreive();
   // console.log(currentFavoriteNumber);
+  // commiting file to git
 }
 
 main()
